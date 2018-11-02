@@ -1,0 +1,45 @@
+table,
+th,
+tr,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+main {
+  float: right;
+  width: 80%;
+}
+
+aside {
+  float: left;
+  width: 20%;
+}
+
+table {
+  width: 100%;
+}
+
+.rating {
+  font-size: 175%;
+  padding: 0 0.5em;
+}
+
+.star {
+  color: #a9a9a9;
+  margin: 0;
+  padding: 0;
+}
+ul.star {
+  display: inline-block;
+}
+.star li {
+  list-style-type: none;
+  display: inline-block;
+  padding: 1px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+.star .filled {
+  color: black;
+}
