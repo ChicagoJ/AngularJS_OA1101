@@ -1,0 +1,23 @@
+<div class="profile">
+    <img ng-src="{{people[index].img}}">
+    <div style="float:right;width:50%;"><button class="btn btn-dark btn-lg ">SEND MESSAGE!</button><br>
+        <div class="rating" rating="people[index].rating || 0" max="5" style="padding-left:0;"></div>
+    </div>
+</div>
+<div class="describe">{{people[index].Description}}</div>
+<div>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Likes</th>
+                <th>Dislikes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="i in people[index].Likes.length >= people[index].Dislikes.length? people[index].Likes: people[index].Dislikes">
+                <td>{{people[index].Likes[$index]||""}}</td>
+                <td>{{people[index].Dislikes[$index]||""}}</td>
+            </tr>
+        <tbody>
+    </table>
+</div>

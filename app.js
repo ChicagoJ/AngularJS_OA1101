@@ -7,7 +7,7 @@ myApp.controller('myCtrl', [
     $http.get('people.json').then(function(response) {
       $scope.people = response.data.People
     })
-    $scope.index = 4
+    $scope.index = 0
     $scope.setIndex = function(index) {
       $scope.index = index
       console.log($scope.index)
@@ -17,25 +17,19 @@ myApp.controller('myCtrl', [
 myApp.directive('header', function() {
   return {
     restrict: 'AE',
-    template: `
-             <div>
-                <input type="text" placeholder="Search" ng-model="search">
-                <span style="float: right">Peter Hoang</span>
-            </div>
-            `
+    templateUrl: 'header.html',
+    controller: function($scope) {
+      $scope.clearInput = function() {
+        $scope.search = ''
+      }
+    }
   }
 })
 
 myApp.directive('nameList', function() {
   return {
     restrict: 'AE',
-    template: `
-                <ul>
-                    <li ng-click="updateIndex($index)" ng-repeat="person in people | filter: search">
-                        {{person.name}} >
-                    </li>
-                </ul>
-                `,
+    templateUrl: 'sidebar.html',
     link: function(scope, elem, attrs) {
       scope.updateIndex = function(index) {
         scope.index = index
@@ -48,25 +42,7 @@ myApp.directive('nameList', function() {
 myApp.directive('centerPanel', function() {
   return {
     restrict: 'AE',
-    template: `
-                <div class="profile">
-                    <img ng-src="{{people[index].img}}">
-                    <div style="float:right;width:50%"><button class="btn btn-primary">SEND MESSAGE!</button><br>
-                        <div class="rating" rating="people[index].rating || 0" max="5"></div>
-                    </div>
-                </div>
-                <div class="describe">{{people[index].Description}}</div>
-                <div>
-                    <table>
-                        <th>Likes</th>
-                        <th>Dislikes</th>
-                        <tr ng-repeat="i in people[index].Likes.length >= people[index].Dislikes.length? people[index].Likes: people[index].Dislikes">
-                            <td>{{people[index].Likes[$index]||""}}</td>
-                            <td>{{people[index].Dislikes[$index]||""}}</td>
-                        </tr>
-                    </table>
-                </div>
-            `
+    templateUrl: 'centerPanel.html'
   }
 })
 
@@ -78,13 +54,7 @@ myApp.directive('rating', [
         rating: '=rating',
         max: '=max'
       },
-      template: `  
-            <ul class="star">
-            <li ng-repeat="star in stars"  ng-class="star">
-            \u2665
-            </li> 
-            </ul>
-            `,
+      templateUrl: 'rating.html',
       link: function(scope, elem, attrs) {
         scope.updateStars = function() {
           scope.stars = []
@@ -95,9 +65,9 @@ myApp.directive('rating', [
           }
         }
         scope.starClass = function(star, idx) {
-          var starClass = 'far fa-star'
+          var starClass = 'far fa-heart'
           if (star.filled) {
-            starClass = 'fas fa-star'
+            starClass = 'fas fa-heart'
           }
           return starClass
         }
